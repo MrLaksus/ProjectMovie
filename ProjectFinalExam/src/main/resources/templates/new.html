@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${movie.id != null ? 'Edit Movie' : 'Add New Movie'}">Add New Movie</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h1 class="text-center" th:text="${movie.id != null ? 'Edit Movie' : 'Add New Movie'}">Add New Movie</h1>
+    <form th:action="@{/movies}" method="post" enctype="multipart/form-data" class="mt-4">
+        <input type="hidden" th:if="${movie.id != null}" name="id" th:value="${movie.id}">
+
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" class="form-control" th:value="${movie.title}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" class="form-control" rows="3" th:text="${movie.description}" required></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" name="genre" class="form-control" th:value="${movie.genre}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="rating">Rating:</label>
+            <input type="number" id="rating" name="rating" class="form-control" min="1" max="10" th:value="${movie.rating}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="image">Image:</label>
+            <input type="file" id="image" name="image" class="form-control-file" accept="image/*">
+            <img th:if="${movie.imageUrl != null}" th:src="@{${movie.imageUrl}}" class="img-thumbnail mt-2" width="150" alt="Movie Image">
+        </div>
+
+        <button type="submit" class="btn btn-success" th:text="${movie.id != null ? 'Update Movie' : 'Save Movie'}">Save Movie</button>
+    </form>
+</div>
+</body>
+</html>
